@@ -28,7 +28,16 @@ This project presents the LTspice simulation and analysis of an automotive-grade
 - Microsoft Word
 
 ## Repository Structure
-arys-automotive-protection/ │ ├── README.md ├── schematics/ ├── simulations/ ├── waveforms/ └── report/
+
+```text
+arys-automotive-protection/
+│
+├── README.md
+├── schematics/
+├── simulations/
+├── waveforms/
+└── report/
+```
 
 ## How to Run the Simulation
 
