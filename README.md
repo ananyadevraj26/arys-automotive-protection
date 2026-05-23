@@ -1,5 +1,3 @@
-# arys-automotive-protection
-
 ## Automotive Reverse Polarity & Load Dump Protection Circuit
 
 This project presents the LTspice simulation and analysis of an automotive-grade ECU input protection circuit designed for:
@@ -10,7 +8,7 @@ This project presents the LTspice simulation and analysis of an automotive-grade
 
 ## Main Components
 
-- F1: 10A Automotive Fuse
+- Fuse: 10A Automotive Fuse
 - D1: P6KE33A TVS Diode
 - M1: IRF7404 P-Channel MOSFET
 - R1: 10kΩ Gate Pull-down Resistor
@@ -23,20 +21,60 @@ This project presents the LTspice simulation and analysis of an automotive-grade
 2. Reverse Battery Protection (-12V)
 3. 100V Automotive Load Dump
 
-## Software Used
+## Tools Used
 
 - LTspice XVII
 - GitHub
 - Microsoft Word
 
 ## Repository Structure
+arys-automotive-protection/ │ ├── README.md ├── schematics/ ├── simulations/ ├── waveforms/ └── report/
 
-- /schematics → LTspice schematic files
-- /simulations → RAW simulation outputs
-- /waveforms → waveform screenshots
-- /report → final PDF report
+## How to Run the Simulation
+
+1. Install LTspice XVII  
+   https://www.analog.com/ltspice
+
+2. Clone this repository:
+
+```bash
+git clone https://github.com/ananyadevraj26/arys-automotive-protection.git
+```
+
+3. Open LTspice  
+   File → Open →  
+   `schematics/automotive_protection_circuit.asc`
+
+4. Run the transient simulation:
+
+```spice
+.tran 10m
+```
+
+5. Probe the following signals:
+
+- VIN
+- VOUT
+- I(D1)
+- Id(M1)
+
+## Test Configurations
+
+| Test | V1 Configuration |
+|------|------------------|
+| Normal 12V Operation | `DC = 12, Rser = 2` |
+| Reverse Polarity | `DC = -12, Rser = 2` |
+| Load Dump Surge | `PULSE(12 100 2m 1u 100u 500u 10m), Rser = 2` |
+
+## Simulation Results
+
+| Test | Fault Condition | Simulation Result | Overall Status |
+|------|------------------|------------------|----------------|
+| **Test 1** | Normal 12V Operation | `VOUT ≈ 11.76V` steady, nominal load current drawn | **PASS** |
+| **Test 2** | Reverse Polarity (-12V) | `VOUT = 0V`; complete downstream isolation achieved | **PASS** |
+| **Test 3** | 100V Load Dump Surge | TVS clamps transient successfully; full self-recovery by 4ms | **PASS** *(with limitation)* |
+
 
 ## Author
 
 Ananya Devraj
-Arys Garage Technical Assignment — Q4
